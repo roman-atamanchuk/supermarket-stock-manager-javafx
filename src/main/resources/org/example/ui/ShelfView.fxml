@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="org.example.ui.ShelfControllerUI">
+
+    <!-- ======= TOP BAR ======= -->
+    <top>
+        <HBox spacing="10" alignment="CENTER_LEFT">
+            <padding>
+                <Insets top="10" left="10" right="10" bottom="10"/>
+            </padding>
+            <Label text="Aisle:"/>
+            <Label fx:id="aisleNameLabel" style="-fx-font-weight: bold;"/>
+        </HBox>
+    </top>
+
+    <!-- ======= CENTER SECTION ======= -->
+    <center>
+        <VBox spacing="12">
+            <padding>
+                <Insets top="10" left="10" right="10" bottom="10"/>
+            </padding>
+
+            <Label text="Shelves:" style="-fx-font-size: 14px; -fx-font-weight: bold;"/>
+
+            <!-- 🟦 TABLE VIEW -->
+            <TableView fx:id="shelfTable" prefHeight="250">
+                <columns>
+                    <TableColumn fx:id="numberColumn" text="Shelf Number" prefWidth="120"/>
+                    <TableColumn fx:id="quantityColumn" text="Total Goods" prefWidth="120"/>
+                    <TableColumn fx:id="valueColumn" text="Total Value (€)" prefWidth="150"/>
+                </columns>
+            </TableView>
+
+            <!-- 🟨 SUMMARY BAR -->
+            <HBox spacing="20" alignment="CENTER_LEFT">
+                <Label text="Total Shelves:" style="-fx-font-weight: bold;"/>
+                <Label fx:id="totalShelvesLabel" text="0"/>
+                <Label text="Total Goods:" style="-fx-font-weight: bold;"/>
+                <Label fx:id="totalGoodsLabel" text="0"/>
+                <Label text="Total Value:" style="-fx-font-weight: bold;"/>
+                <Label fx:id="totalValueLabel" text="€0.00"/>
+            </HBox>
+
+            <!-- 🟩 ADD / REMOVE -->
+            <HBox spacing="10" alignment="CENTER_LEFT">
+                <TextField fx:id="shelfNumberField" promptText="Shelf number" prefWidth="120"/>
+                <Button text="Add Shelf" onAction="#handleAddShelf" prefWidth="100"/>
+                <Button text="Remove Selected" onAction="#handleRemoveShelf"
+                        style="-fx-background-color: #c0392b; -fx-text-fill: white;"
+                        prefWidth="130"/>
+            </HBox>
+
+        </VBox>
+    </center>
+</BorderPane>

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="org.example.ui.DashboardController">
+
+    <top>
+        <VBox spacing="10">
+            <padding>
+                <Insets top="10" right="10" bottom="10" left="10"/>
+            </padding>
+
+            <HBox spacing="10" alignment="CENTER_LEFT">
+                <Label text="Supermarket Name:" style="-fx-font-weight: bold;"/>
+                <Label fx:id="supermarketNameLabel"
+                       style="-fx-font-weight: bold; -fx-text-fill: #2c3e50;"/>
+            </HBox>
+
+            <HBox spacing="10" alignment="CENTER_LEFT">
+                <TextField fx:id="searchField"
+                           promptText="Search floor by name..."
+                           prefWidth="250"/>
+                <Button text="Search" onAction="#handleSearchFloor" prefWidth="90"/>
+                <Button text="Clear" onAction="#handleClearSearch" prefWidth="80"/>
+            </HBox>
+        </VBox>
+    </top>
+
+    <center>
+        <VBox spacing="12">
+            <padding>
+                <Insets top="10" right="10" bottom="10" left="10"/>
+            </padding>
+
+            <Label text="Floor Areas:"
+                   style="-fx-font-size: 14px; -fx-font-weight: bold;"/>
+
+            <TableView fx:id="floorAreaTable" prefHeight="320">
+                <columns>
+                    <TableColumn fx:id="titleColumn" text="Title" prefWidth="150"/>
+                    <TableColumn fx:id="levelColumn" text="Level" prefWidth="120"/>
+                    <TableColumn fx:id="aisleCountColumn" text="Aisles" prefWidth="80"/>
+                    <TableColumn fx:id="totalValueColumn" text="Total Value (€)" prefWidth="150"/>
+                    <TableColumn fx:id="totalQuantityColumn" text="Total Qty" prefWidth="120"/>
+                </columns>
+            </TableView>
+
+            <!-- 💰 SUMMARY LINE -->
+            <HBox spacing="15" alignment="CENTER_LEFT">
+                <Label text="Total Supermarket Value:" style="-fx-font-weight: bold;"/>
+                <Label fx:id="totalValueLabel" text="€0.00" style="-fx-text-fill: #2c3e50;"/>
+
+                <Label text=" |  Total Quantity:" style="-fx-font-weight: bold;"/>
+                <Label fx:id="totalQuantityLabel" text="0" style="-fx-text-fill: #2c3e50;"/>
+            </HBox>
+
+            <Separator/>
+
+            <!-- ADD / REMOVE CONTROLS -->
+            <HBox spacing="10" alignment="CENTER_LEFT">
+                <TextField fx:id="floorTitleField" promptText="Floor title" prefWidth="150"/>
+                <TextField fx:id="floorLevelField" promptText="Level" prefWidth="100"/>
+                <Button text="Add Floor" onAction="#handleAddFloor" prefWidth="100"/>
+                <Button text="Remove Floor"
+                        onAction="#handleRemoveFloor"
+                        style="-fx-background-color: #ff4d4d; -fx-text-fill: white;"
+                        prefWidth="120"/>
+            </HBox>
+        </VBox>
+    </center>
+</BorderPane>

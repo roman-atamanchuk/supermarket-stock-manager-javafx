@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="org.example.ui.AisleControllerUI">
+
+    <!-- ======= TOP BAR ======= -->
+    <top>
+        <HBox spacing="10" alignment="CENTER_LEFT">
+            <padding>
+                <Insets top="10" left="10" right="10" bottom="10"/>
+            </padding>
+            <Label text="Floor:"/>
+            <Label fx:id="floorNameLabel" style="-fx-font-weight: bold;"/>
+        </HBox>
+    </top>
+
+    <!-- ======= CENTER SECTION ======= -->
+    <center>
+        <VBox spacing="12">
+            <padding>
+                <Insets top="10" left="10" right="10" bottom="10"/>
+            </padding>
+
+            <Label text="Aisles:" style="-fx-font-size: 14px; -fx-font-weight: bold;"/>
+
+            <!-- 🟦 AISLE TABLE VIEW -->
+            <TableView fx:id="aisleTable" prefHeight="300">
+                <columns>
+                    <TableColumn fx:id="nameColumn" text="Name" prefWidth="140"/>
+                    <TableColumn fx:id="tempColumn" text="Temperature" prefWidth="120"/>
+                    <TableColumn fx:id="lengthColumn" text="Length (m)" prefWidth="90"/>
+                    <TableColumn fx:id="widthColumn" text="Width (m)" prefWidth="90"/>
+                    <TableColumn fx:id="shelfCounterColumn" text="Shelves" prefWidth="80"/>
+                    <TableColumn fx:id="totalValueColumn" text="Total Value (€)" prefWidth="110"/>
+                    <TableColumn fx:id="totalQuantityColumn" text="Total Qty" prefWidth="100"/>
+                </columns>
+            </TableView>
+
+            <!-- 🟨 SUMMARY LABELS -->
+            <HBox spacing="20" alignment="CENTER_LEFT">
+                <Label text="Total Aisles:" style="-fx-font-weight: bold;"/>
+                <Label fx:id="totalAisleLabel" text="0"/>
+                <Label text="Total Shelves:" style="-fx-font-weight: bold;"/>
+                <Label fx:id="totalShelfLabel" text="0"/>
+                <Label text="Total Value:" style="-fx-font-weight: bold;"/>
+                <Label fx:id="totalValueLabel" text="€0.00"/>
+                <Label text="Total Quantity:" style="-fx-font-weight: bold;"/>
+                <Label fx:id="totalQuantityLabel" text="0"/>
+            </HBox>
+
+            <!-- 🟩 ADD/REMOVE BUTTONS -->
+            <HBox spacing="10" alignment="CENTER_LEFT">
+                <TextField fx:id="aisleNameField" promptText="Aisle name" prefWidth="130"/>
+                <ChoiceBox fx:id="temperatureChoiceBox" prefWidth="120"/>
+                <TextField fx:id="lengthField" promptText="Length" prefWidth="80"/>
+                <TextField fx:id="widthField" promptText="Width" prefWidth="80"/>
+                <Button text="Add Aisle" onAction="#handleAddAisle" prefWidth="100"/>
+                <Button text="Remove Selected" onAction="#handleRemoveAisle"
+                        style="-fx-background-color: #c0392b; -fx-text-fill: white;"
+                        prefWidth="130"/>
+            </HBox>
+        </VBox>
+    </center>
+</BorderPane>

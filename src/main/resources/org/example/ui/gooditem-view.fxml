@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="org.example.ui.goodItem.GoodItemControllerUI">
+
+    <!-- ===== TOP BAR ===== -->
+    <top>
+        <VBox spacing="5">
+
+            <!-- === Top HBox: Hamburger + Reset DB + Floors === -->
+            <HBox spacing="10" alignment="CENTER_LEFT" style="-fx-background-color: #f5f5f5;">
+                <padding>
+                    <Insets top="8" left="10" right="10" bottom="8"/>
+                </padding>
+
+                <!-- Hamburger -->
+                <Button text="☰"
+                        onAction="#toggleFormVisibility"
+                        style="-fx-font-size: 18px; -fx-background-color: transparent; -fx-cursor: hand;"/>
+
+                <!-- RESET DATABASE BUTTON -->
+                <Button text="🗑 Reset DB"
+                        onAction="#handleResetDatabase"
+                        style="-fx-background-color: #ffcccc; -fx-font-weight: bold; -fx-cursor: hand;"/>
+
+                <!-- Floors row -->
+                <Label text="Floors:" style="-fx-font-weight: bold;"/>
+                <FlowPane fx:id="floorBar" hgap="6" vgap="6" alignment="CENTER_LEFT"
+                          style="-fx-padding: 5 10 5 10;"/>
+            </HBox>
+
+            <!-- === Second HBox: Aisles === -->
+            <HBox spacing="10" alignment="CENTER_LEFT" style="-fx-background-color: #f5f5f5;">
+                <padding>
+                    <Insets top="8" left="10" right="10" bottom="8"/>
+                </padding>
+
+                <Label text="Aisles:" style="-fx-font-weight: bold;"/>
+                <FlowPane fx:id="aisleBar" hgap="6" vgap="6" alignment="CENTER_LEFT"
+                          style="-fx-padding: 5 10 5 10;"/>
+            </HBox>
+
+            <!-- === Third HBox: Shelves === -->
+            <HBox fx:id="shelfBar" spacing="8" alignment="CENTER_LEFT"
+                  style="-fx-background-color: #eaeaea; -fx-padding: 5 10 5 10;">
+            </HBox>
+
+            <!-- === Info labels === -->
+            <HBox spacing="10" alignment="CENTER_LEFT" style="-fx-padding: 0 10 5 10;">
+                <Label fx:id="aisleLabel" text="Aisle:"/>
+                <Label fx:id="shelfNumberLabel" text="Shelf #"/>
+            </HBox>
+
+        </VBox>
+    </top>
+
+    <!-- ===== CENTER CONTENT ===== -->
+    <center>
+
+        <SplitPane fx:id="mainSplit" dividerPositions="0.6">
+            <!-- ===== LEFT SIDE: TABLE + FORM ===== -->
+            <VBox spacing="10">
+                <padding><Insets top="10" left="10" right="10" bottom="10"/></padding>
+
+                <!-- === Search Bar === -->
+                <HBox spacing="8" alignment="CENTER_LEFT" style="-fx-padding: 5 0 5 0;">
+                    <Label text="Search Goods:" style="-fx-font-weight: bold;"/>
+                    <TextField fx:id="searchField" promptText="Enter name..."/>
+                    <Button text="🔍 Search" onAction="#handleSearchGood"/>
+                    <Button text="🔄 Reset" onAction="#handleResetSearch"/>
+                </HBox>
+
+                <!-- === Table Label === -->
+                <Label text="Goods on Shelf:" style="-fx-font-weight: bold; -fx-font-size: 13px;"/>
+
+                <!-- === Goods Table === -->
+                <TableView fx:id="goodsTable" VBox.vgrow="ALWAYS">
+                    <columns>
+                        <TableColumn fx:id="nameColumn" text="Name" prefWidth="140"/>
+                        <TableColumn fx:id="descColumn" text="Description" prefWidth="160"/>
+                        <TableColumn fx:id="qtyColumn" text="Quantity" prefWidth="80"/>
+                        <TableColumn fx:id="priceColumn" text="Unit Price (€)" prefWidth="100"/>
+                        <TableColumn fx:id="tempColumn" text="Temperature" prefWidth="110"/>
+                        <TableColumn fx:id="photoColumn" text="Image" prefWidth="80"/>
+                        <TableColumn fx:id="floorColumn" text="Floor" prefWidth="100"/>
+                        <TableColumn fx:id="aisleColumn" text="Aisle" prefWidth="80"/>
+                        <TableColumn fx:id="shelfColumn" text="Shelf" prefWidth="80"/>
+                    </columns>
+                </TableView>
+
+                <!-- Hidden Add/Edit Form (toggled by ☰) -->
+                <VBox fx:id="formPane" spacing="10" visible="false" managed="false">
+                    <GridPane hgap="10" vgap="8">
+                        <columnConstraints>
+                            <ColumnConstraints halignment="RIGHT"/>
+                            <ColumnConstraints hgrow="ALWAYS"/>
+                        </columnConstraints>
+
+                        <Label text="Name:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                        <TextField fx:id="nameField" promptText="e.g. Cornflakes" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+
+                        <Label text="Description:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                        <TextField fx:id="descField" promptText="e.g. Crunchy cereal" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+                        <Label text="Weight (g/ml):" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+                        <TextField fx:id="weightField" promptText="e.g. 720" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+
+                        <Label text="Quantity:" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+                        <TextField fx:id="qtyField" promptText="e.g. 10" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+
+                        <Label text="Price (€):" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
+                        <TextField fx:id="priceField" promptText="e.g. 3.99" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
+
+                        <Label text="Temperature:" GridPane.rowIndex="5" GridPane.columnIndex="0"/>
+                        <ComboBox fx:id="tempCombo" GridPane.rowIndex="5" GridPane.columnIndex="1"/>
+
+                        <Label text="Photo URL:" GridPane.rowIndex="6" GridPane.columnIndex="0"/>
+                        <TextField fx:id="photoField" promptText="https://..." GridPane.rowIndex="6" GridPane.columnIndex="1"/>
+                    </GridPane>
+
+                    <HBox spacing="10" alignment="CENTER_LEFT">
+                        <Button text="➕ Add Good" onAction="#handleAddGood"/>
+                        <Button text="🗑 Remove Selected" onAction="#handleRemoveGood"/>
+                        <Button text="🔄 Refresh" onAction="#refreshGoodsTable"/>
+                    </HBox>
+                </VBox>
+            </VBox>
+
+            <!-- ===== RIGHT SIDE: IMAGE PREVIEW ===== -->
+            <VBox spacing="10" alignment="CENTER">
+                <padding><Insets top="10" right="10" bottom="10" left="10"/></padding>
+
+                <StackPane VBox.vgrow="ALWAYS" HBox.hgrow="ALWAYS"
+                           style="-fx-border-color: #ccc; -fx-border-radius: 5;">
+                    <ImageView fx:id="photoPreview"
+                               preserveRatio="true"
+                               smooth="true"
+                               fitWidth="800"
+                               fitHeight="600"
+                               StackPane.alignment="CENTER"/>
+                </StackPane>
+
+                <Label fx:id="photoNameLabel" style="-fx-font-size: 12px; -fx-text-fill: #444;"/>
+                <TextArea fx:id="photoDescArea" editable="false" wrapText="true"
+                          style="-fx-font-size: 12px; -fx-control-inner-background: #fafafa;"
+                          prefWidth="200" prefHeight="80"/>
+            </VBox>
+        </SplitPane>
+    </center>
+</BorderPane>
